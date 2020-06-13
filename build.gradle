@@ -1,0 +1,36 @@
+apply from: "config.gradle"
+
+buildscript {
+    ext.kotlin_version ='1.3.10'
+    repositories {
+
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        //router拦截器注册
+        classpath "com.alibaba:arouter-register:1.0.2"
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

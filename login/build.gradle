@@ -1,0 +1,61 @@
+if (IS_APPLICATION.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion TARGET_SDK_VERSION.toInteger()
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        if (IS_APPLICATION.toBoolean())
+            applicationId "com.fish.login"
+        minSdkVersion MIN_SDK_VERSION.toInteger()
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME
+        multiDexEnabled true
+
+        //route必须
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets{
+        main{
+            if(IS_APPLICATION.toBoolean()){
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/coroutines.pro'
+    }
+}
+
+dependencies {
+    implementation project(path: ':lib_common')
+    kapt 'com.alibaba:arouter-compiler:1.1.4'
+}

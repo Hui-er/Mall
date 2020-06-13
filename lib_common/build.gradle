@@ -1,0 +1,134 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//router-register
+apply plugin: 'com.alibaba.arouter'
+
+android {
+    compileSdkVersion TARGET_SDK_VERSION.toInteger()
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION.toInteger()
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME
+    }
+
+    kapt {
+        arguments {
+            arg("moduleName", project.getName())
+        }
+    }
+
+    buildTypes {
+        release {
+            buildConfigField("String", "baseUrl", uatBaseUrl)
+        }
+
+        debug {
+            buildConfigField("String", "baseUrl", devBaseUrl)
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api "androidx.core:core-ktx:+"
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api "androidx.cardview:cardview:1.0.0"
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.android.support:multidex:1.0.3'
+
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api('io.reactivex.rxjava2:rxjava:2.2.3') {
+        force = true
+    }
+    api 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+    api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
+    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+    api 'me.jessyan:rxerrorhandler:2.1.1'
+
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    api 'com.squareup.okhttp3:okhttp:4.2.1'
+    api 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    api 'com.github.bumptech.glide:glide:4.6.1'
+    api 'com.squareup.picasso:picasso:2.5.2'
+
+    api 'com.alibaba:arouter-api:1.4.1'
+    kapt 'com.alibaba:arouter-compiler:1.1.4'
+
+    //smartRefresh
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-17'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-17'//没有使用特殊Header，可以不加这行
+
+    //二维码
+    api 'cn.yipianfengye.android:zxing-library:2.2'
+
+    //圆形图片
+    api 'de.hdodenhof:circleimageview:2.1.0'
+
+    //图片选择
+    api 'com.darsh.multipleimageselect:multipleimageselect:1.0.5'
+
+    //时间,城市等选择器
+    api 'com.contrarywind:Android-PickerView:4.1.6'
+
+    //tag布局
+    api 'com.hyman:flowlayout-lib:1.1.2'
+
+    //banner图
+    api 'com.bigkoo:convenientbanner:2.0.5'
+
+    //底部导航栏
+    api 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+
+    //圆角头像,可包含边框
+    api 'com.makeramen:roundedimageview:2.3.0'
+
+    //密码框
+    api 'com.jungly:gridPasswordView:0.3'
+
+    //角标库
+    api 'com.github.nekocode:Badge:2.0'
+
+    //解决webview加载html适配问题
+    api 'org.jsoup:jsoup:1.10.2'
+
+    //单行菜单文本
+    api 'com.knowledge.mnlin:linemenuview:2.0.6'
+
+    //短信监听器
+    api 'com.knowledge.mnlin:rregister:1.0.0'
+
+    // calendar 控件
+    api 'com.haibin:calendarview:3.3.1'
+
+    //gif播放
+    api 'com.github.Cutta:GifView:1.1'
+
+    //首页引导插件
+    api 'com.github.apl-devs:appintro:v4.2.3'
+
+    //手势解锁库
+    api 'com.wangnan:gesturelockview:1.0.2'
+
+    //ws
+    api 'com.neovisionaries:nv-websocket-client:2.8'
+
+    api "androidx.preference:preference-ktx:1.1.1"
+
+    api 'com.github.fingdo:stateLayout:1.0.4'
+
+}

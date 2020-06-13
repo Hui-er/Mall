@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion TARGET_SDK_VERSION.toInteger()
+    buildToolsVersion BUILD_TOOLS_VERSION
+    defaultConfig {
+        applicationId "com.fish.mall"
+        minSdkVersion MIN_SDK_VERSION.toInteger()
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/coroutines.pro'
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation project(path: ':lib_common')
+    if (!IS_APPLICATION.toBoolean()) {
+        implementation project(path: ':login')
+    }
+    kapt 'com.alibaba:arouter-compiler:1.1.4'
+}
+
+repositories {
+    mavenCentral()
+}

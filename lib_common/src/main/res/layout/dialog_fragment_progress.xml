@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FF272A3F"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dis_32d"
+    android:paddingTop="@dimen/dis_16d"
+    android:paddingEnd="@dimen/dis_32d"
+    android:paddingBottom="@dimen/dis_16d"
+    tools:background="@drawable/shape_bg_mask_radius_5dp">
+
+    <com.cunoraz.gifview.library.GifView
+        android:id="@+id/iv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dis_8d"
+        android:textColor="#FF666986"
+        android:textSize="@dimen/text_14sp"
+        android:visibility="gone"
+        tools:text="loading..."
+        tools:visibility="visible" />
+</LinearLayout>

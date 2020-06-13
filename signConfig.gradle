@@ -1,0 +1,6 @@
+ext {
+    storeFilePath = "../kefu.jks"
+    storePassword = "kefu7110211256"
+    keyAlias = "kefu001"
+    keyPassword = "kefu7110211256"
+}

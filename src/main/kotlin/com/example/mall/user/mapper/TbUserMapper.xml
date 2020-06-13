@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mall.user.mapper.TbUserMapper">
+    <insert id="insertUser" parameterType="user">
+        insert into tb_user (id, username, password, token, nickname, phone, headImg)
+        value (#{id}, #{username}, #{password}, #{token}, #{nickname}, #{phone}, #{headImg})
+    </insert>
+
+    <select id="selectUserByUsername" resultType="user" parameterType="java.lang.String">
+        select id, username, password, token, nickname, phone, headImg
+        from tb_user
+        where username = #{username}
+    </select>
+    <update id="updateUser" parameterType="user">
+        update tb_user
+        set username = #{username},
+            password = #{password},
+            token    = #{token},
+            nickname = #{nickname},
+            phone    = #{phone}
+        where id = #{id}
+    </update>
+
+</mapper>

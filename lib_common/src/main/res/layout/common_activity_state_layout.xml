@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fingdo.statelayout.StateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sl="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    sl:emptyImg="@drawable/ic_state_empty"
+    sl:emptyText="@string/empty_tip"
+    sl:errorImg="@drawable/ic_state_error"
+    sl:errorText="@string/error_tip"
+    sl:loadingText="@string/loading_tip"
+    sl:loginImg="@drawable/ic_state_login"
+    sl:loginText="@string/no_login_tip"
+    sl:noNetworkImg="@drawable/ic_state_no_network"
+    sl:noNetworkText="@string/no_network_tip"
+    sl:timeOutImg="@drawable/ic_state_time_out"
+    sl:timeOutText="@string/time_out_tip">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</com.fingdo.statelayout.StateLayout>
