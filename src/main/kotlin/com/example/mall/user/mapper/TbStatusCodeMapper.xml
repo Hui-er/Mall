@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.mall.user.mapper.TbStatusCodeMapper">
-    <select id="selectStatus" resultType="statusCode">
-    select id,status_code as statusCode,message from tb_status_code
-    </select>
-</mapper>
