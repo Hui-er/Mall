@@ -1,7 +1,6 @@
 package com.fish.lib_common.http
 
 
-import com.fish.lib_common.extenision.toast
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -24,19 +23,21 @@ class HttpDataSource private constructor() {
     }
 
     @Synchronized
-    fun <T : BaseHttpBean> requestHttp(observable: Observable<T>, msg: String, success: Consumer<T>, fail: Consumer<Throwable>?=null) {
-        taskCount++
+    fun <T : BaseHttpBean> requestHttp(observable: Observable<T>, msg: String? = null, loading: ((String?, Boolean) -> Unit)? = null, success: (T) -> Unit, fail:((Throwable)->Unit)? = null) {
+        loading?.apply { taskCount++ }
         val disposable = observable
             .subscribeOn(Schedulers.io())
-            .doOnSubscribe { dis -> toast(msg) }
+            .doOnSubscribe { loading?.invoke(msg, true) }
             .subscribeOn(AndroidSchedulers.mainThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseBean ->
                 taskCount--
-                success.accept(responseBean)
+                success.invoke(responseBean)
+                if (taskCount == 0) loading?.invoke(null, false)
             }, { throwable ->
                 taskCount--
-                fail?.accept(throwable)
+                fail?.invoke(throwable)
+                if (taskCount == 0) loading?.invoke(null, false)
             })
         group.add(disposable)
     }

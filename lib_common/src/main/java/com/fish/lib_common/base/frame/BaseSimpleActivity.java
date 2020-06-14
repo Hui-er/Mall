@@ -5,22 +5,16 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
-import android.view.Gravity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.fish.lib_common.base.AppManager;
-import com.fish.lib_common.rxbus.BusTag;
-import com.fish.lib_common.rxbus.RxBus;
 import com.fish.lib_common.rxbus.RxBusManager;
 import com.fish.lib_common.util.L;
 import com.fish.lib_common.util.StatusBarUtil;
-import com.fish.lib_common.util.ToastUtils;
 import com.fish.lib_common.widget.dialog.ProgressDialog;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * 不需要用mvp模式的时候可以用这个
@@ -51,23 +45,26 @@ public abstract class BaseSimpleActivity extends AppCompatActivity {
     protected abstract void initData(@Nullable Bundle savedInstanceState);
 
 
-    protected void showLoading(String msg) {
-        if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
-            ProgressDialog.getInstance(mContext)
-                    .setMessage(msg)
-                    .show();
-        } else {
-            runOnUiThread(() -> ProgressDialog.getInstance(mContext)
-                    .setMessage(msg)
-                    .show());
-        }
+    protected void showLoading(String msg, boolean isShow) {
+        if (isShow) {
+            if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
+                ProgressDialog.getInstance(mContext)
+                        .setMessage(msg)
+                        .show();
+            } else {
+                runOnUiThread(() -> ProgressDialog.getInstance(mContext)
+                        .setMessage(msg)
+                        .show());
+            }
+        } else ProgressDialog.getInstance(mContext).dismiss();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         AppManager.Companion.getAppManager().finishActivity(this);
-        L.i("注销"+getClass().getSimpleName());
+        L.i("注销" + getClass().getSimpleName());
         RxBusManager.unRegister(this);
     }
 

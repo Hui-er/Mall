@@ -3,6 +3,8 @@ package com.fish.login
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.bumptech.glide.Glide
+import com.fish.lib_common.BuildConfig
 import com.fish.lib_common.bean.Student
 import com.fish.lib_common.arouter.ARouterConst
 import com.fish.lib_common.arouter.FlagConst
@@ -10,8 +12,8 @@ import com.fish.lib_common.arouter.Param
 import com.fish.lib_common.base.frame.BaseActivity
 import com.fish.lib_common.extenision.dOnClick
 import com.fish.lib_common.extenision.route
-import com.fish.lib_common.util.L
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
 
 @Route(path = ARouterConst.Activity_LoginActivity, extras = FlagConst.LOGIN)
 class LoginActivity : BaseActivity<LoginPresenter>() {
@@ -28,6 +30,8 @@ class LoginActivity : BaseActivity<LoginPresenter>() {
     @JvmField
     var student: Student? = null
 
+    private var uuid = ""
+
     override fun getPresenter(): LoginPresenter {
         return LoginPresenter(this)
     }
@@ -38,9 +42,25 @@ class LoginActivity : BaseActivity<LoginPresenter>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        L.i(param + count+student?.name+student?.age)
         tv.dOnClick {
-            route(ARouterConst.Activity_PasswordActivity)
+            mPresenter.getData(et.text.toString(),uuid)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadCode()
+    }
+
+    private fun loadCode() {
+        et.setText("")
+        getRandomStr()
+        Glide.with(this)
+            .load(BuildConfig.baseUrl+ "/app/captcha.webp?uuid=${uuid}")
+            .into(iv_code)
+    }
+
+    private fun getRandomStr() {
+        uuid = UUID.randomUUID().toString().replace("-", "")
     }
 }

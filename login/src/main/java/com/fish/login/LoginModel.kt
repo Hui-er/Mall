@@ -1,19 +1,14 @@
 package com.fish.login
 
 import com.fish.lib_common.base.frame.BaseModel
-import com.fish.lib_common.http.HttpDataSource
-import io.reactivex.functions.Consumer
+import com.fish.lib_common.http.BaseHttpBean
 
-class LoginModel(presenter: LoginPresenter) : BaseModel<LoginPresenter>(presenter) {
+class LoginModel : BaseModel() {
 
-
-    private fun getData() {
-        HttpDataSource.instance.requestHttp(httpInterface.login("liu", "123"), "loading", Consumer {
+    public fun getData(code: String, uuid: String, msg: String? = null, loading: ((String?, Boolean) -> Unit)) {
+        requestHttp<BaseHttpBean>(httpInterface.login("15007253417", code, uuid), msg, loading, onSuccess = {
 
         })
     }
 
-    override fun detach() {
-        HttpDataSource.instance.removeDisposable()
-    }
 }

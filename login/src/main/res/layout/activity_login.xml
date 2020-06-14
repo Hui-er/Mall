@@ -11,11 +11,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LoginActivity"
-        android:textSize="@dimen/text_22sp"
         android:textColor="@color/_000000"
+        android:textSize="@dimen/text_22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_code"
+        android:layout_width="@dimen/dis_120d"
+        android:layout_height="@dimen/dis_52d"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dis_20d"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dis_40d"
+        android:layout_marginTop="@dimen/dis_20d"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

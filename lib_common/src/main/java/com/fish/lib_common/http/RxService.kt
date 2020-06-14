@@ -4,7 +4,7 @@ import com.fish.lib_common.BuildConfig
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +34,6 @@ class RxService {
 
     private val gson = GsonBuilder()
         .serializeNulls()
-        .registerTypeAdapterFactory(ListTypeAdapterFactory())//对空列表处理
         .setDateFormat("yyyy:MM:dd HH:mm:ss")
         .registerTypeAdapter(String::class.java, ZeroDeleteAdapter())//0.00值处理
         .create()
@@ -50,7 +49,7 @@ class RxService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.baseUrl)
             .client(okHttpClient)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         return retrofit.create(clazz)
